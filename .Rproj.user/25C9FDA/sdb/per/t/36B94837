@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"長庚大學 大數據分析方法 作業三\"\noutput: github_document\n---\n## 網站資料爬取\n```{r}\n#這是R Code Chunk\nlibrary(rvest)\ntt<-data.frame()\nfor(i in 2582:2591){\n\nptturl<-paste(\"https://www.ptt.cc/bbs/Tech_Job/index\",i,\".html\",sep='')\npttContent <-read_html(ptturl)\npost_title <- pttContent %>%\nhtml_nodes(\".title\") %>%\nhtml_text() \npost_author <- pttContent %>%\nhtml_nodes(\".author\") %>%\nhtml_text() \npost_push <- pttContent %>%\nhtml_nodes(\".nrec\") %>%\nhtml_text()\nptt_page<-pttContent %>%\nhtml_nodes(\".btn wide\") %>%\nhtml_attr(\"href\")\n\npost<-data.frame(Title=post_title, Push=post_push,Author=post_author)\ntt<-rbind(tt,post)\n\n}\n\n```\n\n## 爬蟲結果呈現\n```{r}\n#這是R Code Chunk\n\nknitr::kable(tt)\n```\n\n## 解釋爬蟲結果 \n```{r}\nstr(tt)\n```\n\n解釋:共爬出了200篇的文章，有些文章已被刪除。\n\n```{r}\ntable(tt$Author)\n```\n\n解釋:wer11最多，有4篇;然後kellywu,key9028,chag06,zxcvxx,ck49,sorry5566,zzzz8931,Digtalent等等的是2篇。\n\n結論:\nwer11他po的文章都關於面試、人才招募相關議題。\n大部分的文章開頭都是offer[請益]，其他文章都在分享關於科技公司的心得之類的。\n另外200篇之中就有50篇的文章被刪除，佔全部的1/4。",
+    "created" : 1490868106024.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3554149522",
+    "id" : "36B94837",
+    "lastKnownWriteTime" : 1491039162,
+    "last_content_update" : 1491039162805,
+    "path" : "C:/Users/Yuan/Desktop/長庚/二下/大數據/cguim-bigdata-hw3-chiachichung/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
